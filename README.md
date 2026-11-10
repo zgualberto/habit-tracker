@@ -43,9 +43,18 @@ the charts and streaks are populated immediately. Today is intentionally left un
 
 ## Quick start with Docker
 
-The only requirement is Docker with Compose.
+The application stack itself needs only Docker with Compose. The demo account additionally needs one
+seed run from the host with Node 24 and npm, because the production image intentionally excludes
+development tooling:
 
 ```bash
+cp applications/server/.env.example applications/server/.env
+docker compose up -d database
+npm ci
+npm run contracts:build
+npm run database:generate
+npm run database:migrate
+npm run database:seed
 docker compose up --build
 ```
 
@@ -53,20 +62,9 @@ docker compose up --build
 - API: <http://localhost:8080/api>
 - OpenAPI documentation: <http://localhost:8080/api/docs>
 
-The server container applies Prisma migrations on start and waits for the database health check. It
-does not seed automatically, so an existing volume is never overwritten. Create the demo data from the
-host, using the database port that Compose publishes:
-
-```bash
-npm install
-npm run contracts:build
-npm run database:generate
-npm run database:seed
-docker compose up --build
-```
-
-If the stack is already running, the seed command above still works because PostgreSQL is available on
-`localhost:5432`; the API picks up the new rows immediately.
+The server container also applies Prisma migrations on start and waits for the database health check.
+It does not seed automatically, so an existing volume is never overwritten. Run the seed step again
+only when you deliberately want to reset the demo history.
 
 The development VAPID keys in `.env.example` and `docker-compose.yml` are intentionally public demo
 keys. Generate real keys for any deployment:
