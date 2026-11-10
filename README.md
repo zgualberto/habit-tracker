@@ -13,11 +13,11 @@ client and the API share one typed contract package, so a request shape can only
 
 ## Screens and workflows
 
-| Workflow | Screens |
-| --- | --- |
+| Workflow                  | Screens                                                                                                               |
+| ------------------------- | --------------------------------------------------------------------------------------------------------------------- |
 | Build and sustain a habit | Today (`/`), New habit (`/habits/new`), Habit detail (`/habits/:identifier`), Edit habit (`/habits/:identifier/edit`) |
-| Reflect and stay on track | Insights (`/insights`), Settings (`/settings`) |
-| Account | Sign in (`/login`), Create account (`/register`), Not found (catch-all) |
+| Reflect and stay on track | Insights (`/insights`), Settings (`/settings`)                                                                        |
+| Account                   | Sign in (`/login`), Create account (`/register`), Not found (catch-all)                                               |
 
 - **Today** shows every active habit that is scheduled for the person's local date, the daily
   completion progress, and a one-tap check-in. A check-in on a counted habit records its target value.
@@ -99,46 +99,46 @@ same-origin during development as well.
 All server configuration is validated at startup. Missing or invalid values stop the process with a
 readable error rather than failing later at runtime.
 
-| Variable | Purpose |
-| --- | --- |
-| `NODE_ENVIRONMENT` | `development`, `test`, or `production` |
-| `PORT` | API port (default `3000`) |
-| `DATABASE_URL` | PostgreSQL connection string |
-| `AUTHENTICATION_JWT_SECRET` | Signing secret for session tokens |
-| `CLIENT_ORIGIN` | Allowed CORS origin and cookie origin |
-| `VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY`, `VAPID_SUBJECT` | Web Push credentials |
-| `ANALYTICS_RETENTION_IN_DAYS` | Daily retention window for analytics events |
+| Variable                                                 | Purpose                                     |
+| -------------------------------------------------------- | ------------------------------------------- |
+| `NODE_ENVIRONMENT`                                       | `development`, `test`, or `production`      |
+| `PORT`                                                   | API port (default `3000`)                   |
+| `DATABASE_URL`                                           | PostgreSQL connection string                |
+| `AUTHENTICATION_JWT_SECRET`                              | Signing secret for session tokens           |
+| `CLIENT_ORIGIN`                                          | Allowed CORS origin and cookie origin       |
+| `VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY`, `VAPID_SUBJECT` | Web Push credentials                        |
+| `ANALYTICS_RETENTION_IN_DAYS`                            | Daily retention window for analytics events |
 
 ## API overview
 
 All routes are under `/api`. Authentication uses an httpOnly cookie named
 `habit_tracker_authentication`; the client never reads or stores the token in JavaScript.
 
-| Method | Path | Description |
-| --- | --- | --- |
-| `GET` | `/health` | Database-aware health probe (503 when PostgreSQL is unreachable) |
-| `POST` | `/authentication/register` | Create an account and start a session |
-| `POST` | `/authentication/login` | Sign in and start a session |
-| `POST` | `/authentication/logout` | Revoke the current session |
-| `GET` | `/authentication/me` | Read the current profile |
-| `PATCH` | `/authentication/me` | Update display name or time zone |
-| `GET` | `/habits?status=active\|archived\|all` | List habits |
-| `POST` | `/habits` | Create a habit |
-| `GET` | `/habits/:identifier` | Read a habit with streaks |
-| `PATCH` | `/habits/:identifier` | Update a habit |
-| `DELETE` | `/habits/:identifier` | Archive a habit |
-| `GET` | `/habits/:identifier/logs` | List check-ins |
-| `PUT` | `/habits/:identifier/logs/:localDate` | Create or replace a check-in |
-| `DELETE` | `/habits/:identifier/logs/:localDate` | Remove a check-in |
-| `GET` | `/today?localDate=YYYY-MM-DD` | Habits due on a local date |
-| `GET` | `/insights?fromLocalDate&toLocalDate` | Habit analytics for a range |
-| `POST` | `/analytics-events` | Record a page view (anonymous or attributed) |
-| `GET` | `/analytics-summary?fromLocalDate&toLocalDate` | Page analytics for the signed-in person |
-| `GET` | `/push-subscriptions` | List the person's push subscriptions |
-| `POST` | `/push-subscriptions` | Register or refresh a browser subscription |
-| `DELETE` | `/push-subscriptions/:identifier` | Remove a subscription |
-| `GET` | `/notifications/configuration` | Whether push is configured, plus the public key |
-| `POST` | `/notifications/test` | Send a test push to the person's browsers |
+| Method   | Path                                           | Description                                                      |
+| -------- | ---------------------------------------------- | ---------------------------------------------------------------- |
+| `GET`    | `/health`                                      | Database-aware health probe (503 when PostgreSQL is unreachable) |
+| `POST`   | `/authentication/register`                     | Create an account and start a session                            |
+| `POST`   | `/authentication/login`                        | Sign in and start a session                                      |
+| `POST`   | `/authentication/logout`                       | Revoke the current session                                       |
+| `GET`    | `/authentication/me`                           | Read the current profile                                         |
+| `PATCH`  | `/authentication/me`                           | Update display name or time zone                                 |
+| `GET`    | `/habits?status=active\|archived\|all`         | List habits                                                      |
+| `POST`   | `/habits`                                      | Create a habit                                                   |
+| `GET`    | `/habits/:identifier`                          | Read a habit with streaks                                        |
+| `PATCH`  | `/habits/:identifier`                          | Update a habit                                                   |
+| `DELETE` | `/habits/:identifier`                          | Archive a habit                                                  |
+| `GET`    | `/habits/:identifier/logs`                     | List check-ins                                                   |
+| `PUT`    | `/habits/:identifier/logs/:localDate`          | Create or replace a check-in                                     |
+| `DELETE` | `/habits/:identifier/logs/:localDate`          | Remove a check-in                                                |
+| `GET`    | `/today?localDate=YYYY-MM-DD`                  | Habits due on a local date                                       |
+| `GET`    | `/insights?fromLocalDate&toLocalDate`          | Habit analytics for a range                                      |
+| `POST`   | `/analytics-events`                            | Record a page view (anonymous or attributed)                     |
+| `GET`    | `/analytics-summary?fromLocalDate&toLocalDate` | Page analytics for the signed-in person                          |
+| `GET`    | `/push-subscriptions`                          | List the person's push subscriptions                             |
+| `POST`   | `/push-subscriptions`                          | Register or refresh a browser subscription                       |
+| `DELETE` | `/push-subscriptions/:identifier`              | Remove a subscription                                            |
+| `GET`    | `/notifications/configuration`                 | Whether push is configured, plus the public key                  |
+| `POST`   | `/notifications/test`                          | Send a test push to the person's browsers                        |
 
 Errors always use the same JSON shape:
 
@@ -206,10 +206,10 @@ Notable indexes:
 A reproducible benchmark compares a 90-day range query over 100,000 habit logs with and without the
 composite index:
 
-| Scenario | Average time | Rows |
-| --- | --- | --- |
-| Without the composite index | 12.20 ms | 91 |
-| With `habit_log(habitIdentifier, localDate)` | 0.82 ms | 91 |
+| Scenario                                     | Average time | Rows |
+| -------------------------------------------- | ------------ | ---- |
+| Without the composite index                  | 12.20 ms     | 91   |
+| With `habit_log(habitIdentifier, localDate)` | 0.82 ms      | 91   |
 
 That is roughly **14.9× faster**, and the plan switches to an index-only scan. The methodology, exact
 query, `EXPLAIN` output, and rationale are in [`docs/database-performance.md`](docs/database-performance.md).
@@ -217,12 +217,14 @@ Re-run it with `npm run benchmark:database`.
 
 ## Tests
 
-| Layer | Tool | Coverage |
-| --- | --- | --- |
-| Contracts | Vitest | Schema and constant behaviour |
-| Server domain | Jest | Local dates, schedules, streaks, completion rules |
-| Server API | Jest + Supertest | Auth (including revoked-token replay), habits, insights, analytics, notifications, health |
-| Client | Vitest + Vue Test Utils | Utilities, stores, and component behaviour |
+| Layer         | Tool                    | Scope                                                                                     | Count    |
+| ------------- | ----------------------- | ----------------------------------------------------------------------------------------- | -------- |
+| Contracts     | Vitest                  | Schema and constant behaviour                                                             | 19 tests |
+| Server domain | Jest                    | Local dates, schedules, streaks, completion rules                                         | 30 tests |
+| Server API    | Jest + Supertest        | Auth (including revoked-token replay), habits, insights, analytics, notifications, health | 29 tests |
+| Client        | Vitest + Vue Test Utils | Utilities, stores, and component behaviour                                                | 30 tests |
+
+That is **108 automated tests** in total, with every layer covered by at least one suite.
 
 ```bash
 npm test                             # contracts + server unit + client
@@ -244,18 +246,18 @@ Each end-to-end suite resets the data it owns, and tests run with `--runInBand` 
 
 ## Scripts
 
-| Command | Description |
-| --- | --- |
-| `npm run development` | Run the API and client with hot reload |
-| `npm run build` | Build contracts, API, and client |
-| `npm run lint` / `npm run format` | ESLint / Prettier |
-| `npm run typecheck` | TypeScript for every workspace |
-| `npm test` | Unit and component suites |
-| `npm run test:end-to-end` | API end-to-end suite |
-| `npm run database:migrate` | Apply migrations |
-| `npm run database:seed` | Recreate the demo account and history |
-| `npm run benchmark:database` | Run the index benchmark |
-| `npm run generate:vapid` | Print a fresh VAPID key pair |
+| Command                           | Description                            |
+| --------------------------------- | -------------------------------------- |
+| `npm run development`             | Run the API and client with hot reload |
+| `npm run build`                   | Build contracts, API, and client       |
+| `npm run lint` / `npm run format` | ESLint / Prettier                      |
+| `npm run typecheck`               | TypeScript for every workspace         |
+| `npm test`                        | Unit and component suites              |
+| `npm run test:end-to-end`         | API end-to-end suite                   |
+| `npm run database:migrate`        | Apply migrations                       |
+| `npm run database:seed`           | Recreate the demo account and history  |
+| `npm run benchmark:database`      | Run the index benchmark                |
+| `npm run generate:vapid`          | Print a fresh VAPID key pair           |
 
 ## Project structure
 
