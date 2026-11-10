@@ -1,0 +1,44 @@
+{
+  "name": "habit-tracker",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Habit and fitness tracker built for the Full Stack Developer exam",
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "workspaces": [
+    "applications/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "npm run build --workspace @habit-tracker/contracts && npm run build --workspace @habit-tracker/server && npm run build --workspace @habit-tracker/client",
+    "contracts:build": "npm run build --workspace @habit-tracker/contracts",
+    "development": "npm run contracts:build && concurrently --names server,client --prefix-colors blue,green \"npm run development --workspace @habit-tracker/server\" \"npm run development --workspace @habit-tracker/client\"",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "npm run test --workspace @habit-tracker/contracts && npm run test --workspace @habit-tracker/server && npm run test --workspace @habit-tracker/client",
+    "test:coverage": "npm run test:coverage --workspace @habit-tracker/server && npm run test:coverage --workspace @habit-tracker/client",
+    "test:end-to-end": "npm run test:end-to-end --workspace @habit-tracker/server",
+    "typecheck": "npm run typecheck --workspace @habit-tracker/contracts && npm run typecheck --workspace @habit-tracker/server && npm run typecheck --workspace @habit-tracker/client",
+    "database:generate": "npm run database:generate --workspace @habit-tracker/server",
+    "database:migrate": "npm run database:migrate --workspace @habit-tracker/server",
+    "database:seed": "npm run database:seed --workspace @habit-tracker/server",
+    "benchmark:database": "npm run benchmark:database --workspace @habit-tracker/server",
+    "generate:vapid": "npm run generate:vapid --workspace @habit-tracker/server",
+    "docker:up": "docker compose up --build",
+    "docker:down": "docker compose down --volumes"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.1",
+    "concurrently": "^9.2.1",
+    "eslint": "^9.39.1",
+    "eslint-plugin-vue": "^10.5.1",
+    "globals": "^16.5.0",
+    "prettier": "^3.6.2",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.46.4",
+    "vue-eslint-parser": "^10.2.0"
+  }
+}
