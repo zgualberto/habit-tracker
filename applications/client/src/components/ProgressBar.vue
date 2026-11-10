@@ -14,7 +14,10 @@ const clampedPercentage = computed(() =>
 
 <template>
   <div class="space-y-1.5">
-    <div v-if="label.length > 0" class="flex items-center justify-between text-xs font-medium text-slate-500">
+    <div
+      v-if="label.length > 0"
+      class="flex items-center justify-between text-xs font-medium text-slate-500"
+    >
       <span>{{ label }}</span>
       <span>{{ clampedPercentage }}%</span>
     </div>

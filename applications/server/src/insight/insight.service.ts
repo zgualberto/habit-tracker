@@ -19,10 +19,7 @@ import {
   buildDailyCompletionSeries,
   calculateCompletionStatistics,
 } from '../domain/habit-completion.utility';
-import {
-  calculateCurrentStreak,
-  calculateLongestStreak,
-} from '../domain/habit-streak.utility';
+import { calculateCurrentStreak, calculateLongestStreak } from '../domain/habit-streak.utility';
 import { toHabitSchedule } from '../habit/habit.mapper';
 import { HabitRepository } from '../habit/habit.repository';
 
@@ -43,10 +40,7 @@ export class InsightService {
     const habits = await this.habitRepository.findManyWithLogs({
       userIdentifier: authenticatedUser.identifier,
       status: 'active',
-      logsFromLocalDate: addDaysToLocalDate(
-        query.fromLocalDate,
-        -HABIT_STATISTICS_HISTORY_IN_DAYS,
-      ),
+      logsFromLocalDate: addDaysToLocalDate(query.fromLocalDate, -HABIT_STATISTICS_HISTORY_IN_DAYS),
     });
 
     const completionSources = habits.map((habit) => ({
@@ -103,7 +97,8 @@ export class InsightService {
     return {
       fromLocalDate: query.fromLocalDate,
       toLocalDate: query.toLocalDate,
-      overallCompletionRate: dueCount === 0 ? 0 : Math.round((completedCount / dueCount) * 1000) / 10,
+      overallCompletionRate:
+        dueCount === 0 ? 0 : Math.round((completedCount / dueCount) * 1000) / 10,
       completedCount,
       dueCount,
       activeHabitCount: habits.length,
@@ -129,9 +124,7 @@ export class InsightService {
       throw new BadRequestException({
         errorCode: ERROR_CODES.VALIDATION_FAILED,
         message: ERROR_MESSAGES.VALIDATION_FAILED,
-        details: [
-          `The date range cannot exceed ${HABIT_INSIGHT_MAXIMUM_RANGE_IN_DAYS} days.`,
-        ],
+        details: [`The date range cannot exceed ${HABIT_INSIGHT_MAXIMUM_RANGE_IN_DAYS} days.`],
       });
     }
   }

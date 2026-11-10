@@ -1,9 +1,6 @@
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router';
 
-import {
-  APPLICATION_ROUTE_NAMES,
-  APPLICATION_ROUTE_PATHS,
-} from '@habit-tracker/contracts';
+import { APPLICATION_ROUTE_NAMES, APPLICATION_ROUTE_PATHS } from '@habit-tracker/contracts';
 
 import { APPLICATION_NAME } from '../constants/application.constants';
 import { PAGE_TITLES } from '../constants/page-titles.constants';
@@ -81,13 +78,13 @@ export const router = createRouter({
   scrollBehavior: () => ({ top: 0 }),
 });
 
-router.beforeEach(async (to) => {
+router.beforeEach(async (destination) => {
   const authenticationStore = useAuthenticationStore();
   await authenticationStore.loadCurrentUser();
 
   if (
-    to.name === APPLICATION_ROUTE_NAMES.LOGIN ||
-    to.name === APPLICATION_ROUTE_NAMES.REGISTRATION
+    destination.name === APPLICATION_ROUTE_NAMES.LOGIN ||
+    destination.name === APPLICATION_ROUTE_NAMES.REGISTRATION
   ) {
     if (authenticationStore.isAuthenticated) {
       return { name: APPLICATION_ROUTE_NAMES.TODAY };
@@ -95,17 +92,17 @@ router.beforeEach(async (to) => {
     return true;
   }
 
-  if (to.meta.requiresAuthentication && !authenticationStore.isAuthenticated) {
+  if (destination.meta.requiresAuthentication && !authenticationStore.isAuthenticated) {
     return {
       name: APPLICATION_ROUTE_NAMES.LOGIN,
-      query: { [LOGIN_REDIRECT_QUERY_KEY]: to.fullPath },
+      query: { [LOGIN_REDIRECT_QUERY_KEY]: destination.fullPath },
     };
   }
 
   return true;
 });
 
-router.afterEach((to) => {
-  document.title = `${to.meta.pageTitle} · ${APPLICATION_NAME}`;
-  void useAnalyticsStore().trackPageView(to.fullPath);
+router.afterEach((destination) => {
+  document.title = `${destination.meta.pageTitle} · ${APPLICATION_NAME}`;
+  void useAnalyticsStore().trackPageView(destination.fullPath);
 });

@@ -5,10 +5,7 @@ import type { InsightSummary } from '@habit-tracker/contracts';
 
 import { DEFAULT_INSIGHT_RANGE_IN_DAYS } from '../constants/presentation.constants';
 import { insightService } from '../services/insight.service';
-import {
-  addDaysToClientLocalDate,
-  getClientLocalDate,
-} from '../utilities/local-date.utility';
+import { addDaysToClientLocalDate, getClientLocalDate } from '../utilities/local-date.utility';
 
 export const useInsightStore = defineStore('insight', () => {
   const summary = ref<InsightSummary | null>(null);

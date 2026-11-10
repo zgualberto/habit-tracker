@@ -86,8 +86,7 @@ async function main(): Promise<void> {
       `;
 
       const withoutIndex = await measureQuery('Range query without index', async () => {
-        const queryResult =
-          await transaction.$queryRawUnsafe<{ rows: number }[]>(rangeQuery);
+        const queryResult = await transaction.$queryRawUnsafe<{ rows: number }[]>(rangeQuery);
         return { rows: queryResult[0]?.rows ?? 0 };
       });
 
@@ -98,8 +97,7 @@ async function main(): Promise<void> {
       await transaction.$executeRawUnsafe('ANALYZE benchmark_habit_log');
 
       const withIndex = await measureQuery('Range query with index', async () => {
-        const queryResult =
-          await transaction.$queryRawUnsafe<{ rows: number }[]>(rangeQuery);
+        const queryResult = await transaction.$queryRawUnsafe<{ rows: number }[]>(rangeQuery);
         return { rows: queryResult[0]?.rows ?? 0 };
       });
 

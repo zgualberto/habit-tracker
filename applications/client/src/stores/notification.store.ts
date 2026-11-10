@@ -1,10 +1,7 @@
 import { defineStore } from 'pinia';
 import { computed, ref } from 'vue';
 
-import type {
-  NotificationConfiguration,
-  PushSubscription,
-} from '@habit-tracker/contracts';
+import type { NotificationConfiguration, PushSubscription } from '@habit-tracker/contracts';
 
 import { NOTIFICATION_PERMISSION_VALUES } from '../constants/presentation.constants';
 import { notificationService } from '../services/notification.service';
@@ -20,9 +17,7 @@ export const useNotificationStore = defineStore('notification', () => {
   const isLoading = ref(false);
   const isSaving = ref(false);
 
-  const isSupported = computed(
-    () => 'serviceWorker' in navigator && 'PushManager' in window,
-  );
+  const isSupported = computed(() => 'serviceWorker' in navigator && 'PushManager' in window);
 
   const isConfigured = computed(() => configuration.value?.isEnabled === true);
 

@@ -118,7 +118,10 @@ export async function apiRequest<ResponseBody>(
   if (!response.ok) {
     const errorInformation = extractErrorMessage(responseBody);
 
-    if (response.status === HTTP_STATUS_CODES.UNAUTHORIZED && !options.suppressAuthenticationRedirect) {
+    if (
+      response.status === HTTP_STATUS_CODES.UNAUTHORIZED &&
+      !options.suppressAuthenticationRedirect
+    ) {
       unauthenticatedHandler?.();
     }
 
@@ -133,9 +136,7 @@ export async function apiRequest<ResponseBody>(
   return responseBody as ResponseBody;
 }
 
-export function buildQueryString(
-  queryValues: Record<string, string | number | undefined>,
-): string {
+export function buildQueryString(queryValues: Record<string, string | number | undefined>): string {
   const searchParameters = new URLSearchParams();
 
   for (const [queryKey, queryValue] of Object.entries(queryValues)) {

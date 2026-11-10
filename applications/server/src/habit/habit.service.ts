@@ -13,10 +13,7 @@ import {
 } from '@habit-tracker/contracts';
 
 import type { AuthenticatedUser } from '../common/types/authenticated-request.type';
-import {
-  addDaysToLocalDate,
-  getCurrentLocalDate,
-} from '../domain/local-date.utility';
+import { addDaysToLocalDate, getCurrentLocalDate } from '../domain/local-date.utility';
 import { toHabitResponse } from './habit.mapper';
 import { HabitRepository, type HabitWithLogs } from './habit.repository';
 

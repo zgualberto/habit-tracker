@@ -161,8 +161,7 @@ function buildHabitLogs(
       localDate,
     );
     const isWeeklyTargetAlreadyMet =
-      fixture.cadence === 'WEEKLY_TARGET' &&
-      completionsInWeek >= (fixture.weeklyTarget ?? 0);
+      fixture.cadence === 'WEEKLY_TARGET' && completionsInWeek >= (fixture.weeklyTarget ?? 0);
 
     if (!isScheduled || isWeeklyTargetAlreadyMet || random() >= fixture.completionProbability) {
       continue;

@@ -26,18 +26,19 @@ vocabulary (`localhost`, `document`, `window`).
 - `id-length` with a minimum of three characters.
 - `id-denylist` for `tmp`, `obj`, `val`, `str`, `num`, `arr`, `cb`, `req`, `res`, `err`, `idx`, `cfg`,
   `env`, `ctx`, `arg`, `param`, `prev`, `props`, `repo`, `dto`, `e`, `i`.
-- `@typescript-eslint/naming-convention` for boolean prefixes.
+- `@typescript-eslint/naming-convention` for casing; the boolean prefix rule is reviewed in code
+  because it requires type-aware linting.
 - Test files relax the identifier rules only for framework callbacks and fixtures.
 
 ## No hardcoded values
 
 Every repeated literal is a constant or an enum:
 
-| Kind | Location |
-| --- | --- |
-| Shared route paths, API paths, error codes, analytics event names, habit enums, limits | `packages/contracts/src/constants` |
+| Kind                                                                                           | Location                                   |
+| ---------------------------------------------------------------------------------------------- | ------------------------------------------ |
+| Shared route paths, API paths, error codes, analytics event names, habit enums, limits         | `packages/contracts/src/constants`         |
 | Server-only constants (cookie name, JWT duration, cron expression, environment variable names) | `applications/server/src/common/constants` |
-| Client-only constants (storage keys, chart colours, toast duration) | `applications/client/src/constants` |
+| Client-only constants (storage keys, chart colours, toast duration)                            | `applications/client/src/constants`        |
 
 Environment values are read through `ConfigService` and validated at startup with Zod. Defaults live in
 constants, never inline at a call site.

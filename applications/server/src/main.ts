@@ -10,12 +10,8 @@ import { API_BASE_PATH } from '@habit-tracker/contracts';
 
 import { AppModule } from './app.module';
 import { configureApplication } from './application.configuration';
-import {
-  AUTHENTICATION_COOKIE_NAME,
-} from './common/constants/authentication.constants';
-import {
-  ENVIRONMENT_VARIABLE_NAMES,
-} from './common/constants/environment.constants';
+import { AUTHENTICATION_COOKIE_NAME } from './common/constants/authentication.constants';
+import { ENVIRONMENT_VARIABLE_NAMES } from './common/constants/environment.constants';
 import {
   SWAGGER_DOCUMENT_DESCRIPTION,
   SWAGGER_DOCUMENT_TITLE,
@@ -40,11 +36,7 @@ async function bootstrap(): Promise<void> {
     .build();
 
   const openApiDocument = SwaggerModule.createDocument(application, openApiConfiguration);
-  SwaggerModule.setup(
-    `${API_BASE_PATH}/docs`,
-    application,
-    cleanupOpenApiDoc(openApiDocument),
-  );
+  SwaggerModule.setup(`${API_BASE_PATH}/docs`, application, cleanupOpenApiDoc(openApiDocument));
 
   const port = configurationService.getOrThrow<number>(ENVIRONMENT_VARIABLE_NAMES.PORT);
   await application.listen(port);

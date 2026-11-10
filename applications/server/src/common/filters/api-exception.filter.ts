@@ -35,7 +35,9 @@ export class ApiExceptionFilter implements ExceptionFilter {
     const response = argumentsHost.switchToHttp().getResponse<Response>();
 
     if (exception instanceof ZodValidationException) {
-      const details = (exception.getZodError() as ZodError).issues.map((issue) => `${issue.path.join('.')}: ${issue.message}`);
+      const details = (exception.getZodError() as ZodError).issues.map(
+        (issue) => `${issue.path.join('.')}: ${issue.message}`,
+      );
       this.writeError(response, HttpStatus.BAD_REQUEST, {
         errorCode: ERROR_CODES.VALIDATION_FAILED,
         message: ERROR_MESSAGES.VALIDATION_FAILED,

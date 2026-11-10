@@ -11,10 +11,7 @@ export type HabitSchedule = {
   weeklyTarget: number | null;
 };
 
-export function isHabitScheduledOnLocalDate(
-  schedule: HabitSchedule,
-  localDate: string,
-): boolean {
+export function isHabitScheduledOnLocalDate(schedule: HabitSchedule, localDate: string): boolean {
   if (schedule.cadence === 'DAILY') {
     return true;
   }
@@ -77,9 +74,7 @@ export function getCompletedLocalDatesInWeek(
   const completedLocalDatesInWeek = new Set<string>();
 
   for (const completedLocalDate of completedLocalDates) {
-    if (
-      getStartOfWeekLocalDate(completedLocalDate, WEEK_START_WEEKDAY) === weekStartLocalDate
-    ) {
+    if (getStartOfWeekLocalDate(completedLocalDate, WEEK_START_WEEKDAY) === weekStartLocalDate) {
       completedLocalDatesInWeek.add(completedLocalDate);
     }
   }

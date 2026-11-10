@@ -14,9 +14,7 @@ import { PushSubscriptionRepository } from './push-subscription.repository';
 
 @Injectable()
 export class PushSubscriptionService {
-  public constructor(
-    private readonly pushSubscriptionRepository: PushSubscriptionRepository,
-  ) {}
+  public constructor(private readonly pushSubscriptionRepository: PushSubscriptionRepository) {}
 
   public async listSubscriptions(
     authenticatedUser: AuthenticatedUser,

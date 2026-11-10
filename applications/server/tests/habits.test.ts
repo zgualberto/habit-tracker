@@ -1,7 +1,4 @@
-import {
-  addDaysToLocalDate,
-  getCurrentLocalDate,
-} from '../src/domain/local-date.utility';
+import { addDaysToLocalDate, getCurrentLocalDate } from '../src/domain/local-date.utility';
 import {
   createAgent,
   createTestContext,
@@ -171,9 +168,7 @@ describe('Habits (end-to-end)', () => {
       .put(`/api/habits/${habitIdentifier}/logs/${localDate}`)
       .send({ completionValue: 1 });
 
-    const deletionResponse = await agent.delete(
-      `/api/habits/${habitIdentifier}/logs/${localDate}`,
-    );
+    const deletionResponse = await agent.delete(`/api/habits/${habitIdentifier}/logs/${localDate}`);
     expect(deletionResponse.status).toBe(204);
 
     const repeatedDeletionResponse = await agent.delete(

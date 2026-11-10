@@ -67,9 +67,7 @@ describe('Notifications (end-to-end)', () => {
       `/api/push-subscriptions/${subscriptionIdentifier}`,
     );
     expect(repeatedDeletionResponse.status).toBe(404);
-    expect(repeatedDeletionResponse.body.errorCode).toBe(
-      'NOTIFICATION_SUBSCRIPTION_NOT_FOUND',
-    );
+    expect(repeatedDeletionResponse.body.errorCode).toBe('NOTIFICATION_SUBSCRIPTION_NOT_FOUND');
   });
 
   it('validates the subscription endpoint', async () => {

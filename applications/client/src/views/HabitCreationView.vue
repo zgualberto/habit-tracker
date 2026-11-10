@@ -2,11 +2,7 @@
 import { storeToRefs } from 'pinia';
 import { useRouter } from 'vue-router';
 
-import {
-  APPLICATION_ROUTE_NAMES,
-  buildHabitDetailRoutePath,
-  type CreateHabitRequest,
-} from '@habit-tracker/contracts';
+import { buildHabitDetailRoutePath, type CreateHabitRequest } from '@habit-tracker/contracts';
 
 import BaseCard from '../components/BaseCard.vue';
 import HabitForm from '../components/HabitForm.vue';
@@ -39,11 +35,7 @@ async function createHabit(request: CreateHabitRequest): Promise<void> {
     />
 
     <BaseCard>
-      <HabitForm
-        submit-label="Create habit"
-        :is-submitting="isSaving"
-        @submit="createHabit"
-      />
+      <HabitForm submit-label="Create habit" :is-submitting="isSaving" @submit="createHabit" />
     </BaseCard>
   </div>
 </template>

@@ -98,8 +98,7 @@ async function toggleTodayCompletion(): Promise<void> {
   try {
     if (todayLog.value === undefined) {
       await habitService.upsertLog(selectedHabit.value.identifier, currentLocalDate.value, {
-        completionValue:
-          selectedHabit.value.targetValue ?? HABIT_LOG_COMPLETION_INCREMENT,
+        completionValue: selectedHabit.value.targetValue ?? HABIT_LOG_COMPLETION_INCREMENT,
         note: null,
       });
       toastStore.pushToast('success', 'Checked in for today.');
@@ -218,11 +217,7 @@ onMounted(loadHabit);
       <BaseCard>
         <template #title>Check-in history</template>
         <template #description>The most recent check-ins for this habit.</template>
-        <HabitHistoryList
-          :logs="selectedHabitLogs"
-          :time-zone="timeZone"
-          :maximum-row-count="30"
-        />
+        <HabitHistoryList :logs="selectedHabitLogs" :time-zone="timeZone" :maximum-row-count="30" />
       </BaseCard>
 
       <p class="text-xs text-slate-400">

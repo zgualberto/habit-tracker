@@ -1,9 +1,6 @@
 import type { Habit } from '@habit-tracker/contracts';
 
-import {
-  calculateCurrentStreak,
-  calculateLongestStreak,
-} from '../domain/habit-streak.utility';
+import { calculateCurrentStreak, calculateLongestStreak } from '../domain/habit-streak.utility';
 import type { HabitWithLogs } from './habit.repository';
 
 export function toHabitResponse(habit: HabitWithLogs, referenceLocalDate: string): Habit {

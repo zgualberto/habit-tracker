@@ -59,20 +59,14 @@ export class ReminderRepository {
    * Reserves the single reminder slot for a habit and calendar day. The unique
    * constraint makes a second concurrent scheduler instance a no-op.
    */
-  public async claimReminderSend(
-    habitIdentifier: string,
-    localDate: string,
-  ): Promise<boolean> {
+  public async claimReminderSend(habitIdentifier: string, localDate: string): Promise<boolean> {
     try {
       await this.prismaService.reminderSend.create({
         data: { habitIdentifier, localDate },
       });
       return true;
     } catch (error) {
-      if (
-        error instanceof Prisma.PrismaClientKnownRequestError &&
-        error.code === 'P2002'
-      ) {
+      if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2002') {
         return false;
       }
       throw error;

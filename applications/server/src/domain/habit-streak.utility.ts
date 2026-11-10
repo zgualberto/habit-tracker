@@ -52,10 +52,7 @@ function calculateDailyOrWeekdayCurrentStreak(
   completedLocalDates: ReadonlySet<string>,
   referenceLocalDate: string,
 ): number {
-  const earliestLocalDate = getEarliestCompletedLocalDate(
-    completedLocalDates,
-    referenceLocalDate,
-  );
+  const earliestLocalDate = getEarliestCompletedLocalDate(completedLocalDates, referenceLocalDate);
 
   let searchFromLocalDate = referenceLocalDate;
   const isReferenceScheduled = isHabitScheduledOnLocalDate(schedule, referenceLocalDate);
@@ -204,18 +201,10 @@ export function calculateCurrentStreak(
   const completedLocalDateSet = new Set(completedLocalDates);
 
   if (schedule.cadence === 'WEEKLY_TARGET') {
-    return calculateWeeklyTargetCurrentStreak(
-      schedule,
-      completedLocalDateSet,
-      referenceLocalDate,
-    );
+    return calculateWeeklyTargetCurrentStreak(schedule, completedLocalDateSet, referenceLocalDate);
   }
 
-  return calculateDailyOrWeekdayCurrentStreak(
-    schedule,
-    completedLocalDateSet,
-    referenceLocalDate,
-  );
+  return calculateDailyOrWeekdayCurrentStreak(schedule, completedLocalDateSet, referenceLocalDate);
 }
 
 export function calculateLongestStreak(
@@ -229,9 +218,5 @@ export function calculateLongestStreak(
     return calculateWeeklyTargetLongestStreak(schedule, completedLocalDateSet);
   }
 
-  return calculateDailyOrWeekdayLongestStreak(
-    schedule,
-    completedLocalDateSet,
-    referenceLocalDate,
-  );
+  return calculateDailyOrWeekdayLongestStreak(schedule, completedLocalDateSet, referenceLocalDate);
 }

@@ -56,10 +56,7 @@ export const useHabitStore = defineStore('habit', () => {
     }
   }
 
-  async function updateHabit(
-    habitIdentifier: string,
-    request: UpdateHabitRequest,
-  ): Promise<Habit> {
+  async function updateHabit(habitIdentifier: string, request: UpdateHabitRequest): Promise<Habit> {
     isSaving.value = true;
     try {
       const habitResponse = await habitService.updateHabit(habitIdentifier, request);

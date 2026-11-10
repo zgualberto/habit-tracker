@@ -23,13 +23,11 @@ describe('Analytics (end-to-end)', () => {
   });
 
   it('accepts an anonymous page view', async () => {
-    const response = await createAgent(testContext.application)
-      .post('/api/analytics-events')
-      .send({
-        name: 'page_view',
-        path: '/login',
-        sessionIdentifier: 'anonymous-session',
-      });
+    const response = await createAgent(testContext.application).post('/api/analytics-events').send({
+      name: 'page_view',
+      path: '/login',
+      sessionIdentifier: 'anonymous-session',
+    });
 
     expect(response.status).toBe(202);
     expect(response.body).toEqual({ accepted: true });
@@ -64,9 +62,7 @@ describe('Analytics (end-to-end)', () => {
       totalPageViews: 1,
       uniqueSessionCount: 1,
     });
-    expect(summaryResponse.body.topPaths).toEqual([
-      { path: '/insights', pageViewCount: 1 },
-    ]);
+    expect(summaryResponse.body.topPaths).toEqual([{ path: '/insights', pageViewCount: 1 }]);
     expect(summaryResponse.body.dailySeries.length).toBeGreaterThan(0);
   });
 

@@ -76,9 +76,7 @@ export class JwtAuthenticationGuard implements CanActivate {
    * token whose session row is missing, revoked, or expired is reported as
    * revoked so the client knows that signing in again is required.
    */
-  private async authenticateRequest(
-    request: AuthenticatedRequest,
-  ): Promise<AuthenticationOutcome> {
+  private async authenticateRequest(request: AuthenticatedRequest): Promise<AuthenticationOutcome> {
     const token = request.cookies?.[AUTHENTICATION_COOKIE_NAME] as string | undefined;
 
     if (token === undefined || token.length === 0) {

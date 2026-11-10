@@ -8,7 +8,9 @@ const selectedWeekdays = defineModel<number[]>({ required: true });
 function toggleWeekday(weekday: number): void {
   selectedWeekdays.value = selectedWeekdays.value.includes(weekday)
     ? selectedWeekdays.value.filter((selectedWeekday) => selectedWeekday !== weekday)
-    : [...selectedWeekdays.value, weekday].sort((firstWeekday, secondWeekday) => firstWeekday - secondWeekday);
+    : [...selectedWeekdays.value, weekday].sort(
+        (firstWeekday, secondWeekday) => firstWeekday - secondWeekday,
+      );
 }
 </script>
 

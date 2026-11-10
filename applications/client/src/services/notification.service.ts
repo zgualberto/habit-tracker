@@ -7,7 +7,10 @@ import {
   type TestNotificationResponse,
 } from '@habit-tracker/contracts';
 
-import { buildNotificationsApiPath, buildPushSubscriptionsApiPath } from '../constants/api-paths.utility';
+import {
+  buildNotificationsApiPath,
+  buildPushSubscriptionsApiPath,
+} from '../constants/api-paths.utility';
 import { HTTP_METHODS } from '../constants/application.constants';
 import { apiRequest } from './api-client';
 
@@ -30,9 +33,12 @@ export const notificationService = {
   },
 
   deleteSubscription(identifier: string): Promise<void> {
-    return apiRequest<void>(`${buildPushSubscriptionsApiPath()}/${encodeURIComponent(identifier)}`, {
-      method: HTTP_METHODS.DELETE,
-    });
+    return apiRequest<void>(
+      `${buildPushSubscriptionsApiPath()}/${encodeURIComponent(identifier)}`,
+      {
+        method: HTTP_METHODS.DELETE,
+      },
+    );
   },
 
   sendTestNotification(): Promise<TestNotificationResponse> {

@@ -5,10 +5,7 @@ import type { AnalyticsSummary } from '@habit-tracker/contracts';
 
 import { analyticsService } from '../services/analytics.service';
 import { getAnalyticsSessionIdentifier } from '../utilities/analytics-session.utility';
-import {
-  addDaysToClientLocalDate,
-  getClientLocalDate,
-} from '../utilities/local-date.utility';
+import { addDaysToClientLocalDate, getClientLocalDate } from '../utilities/local-date.utility';
 
 export const useAnalyticsStore = defineStore('analytics', () => {
   const summary = ref<AnalyticsSummary | null>(null);

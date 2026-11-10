@@ -105,12 +105,7 @@ describe('habit streaks', () => {
     });
 
     it('breaks after a week that missed the target', () => {
-      const completedLocalDates = [
-        '2026-10-26',
-        '2026-10-27',
-        '2026-10-28',
-        '2026-11-02',
-      ];
+      const completedLocalDates = ['2026-10-26', '2026-10-27', '2026-10-28', '2026-11-02'];
 
       expect(calculateCurrentStreak(weeklyTargetSchedule, completedLocalDates, '2026-11-09')).toBe(
         0,

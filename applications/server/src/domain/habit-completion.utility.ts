@@ -1,8 +1,5 @@
 import { WEEK_START_WEEKDAY } from '@habit-tracker/contracts';
-import {
-  addDaysToLocalDate,
-  getStartOfWeekLocalDate,
-} from './local-date.utility';
+import { addDaysToLocalDate, getStartOfWeekLocalDate } from './local-date.utility';
 import {
   countScheduledDaysInRange,
   getCompletedLocalDatesInWeek,
@@ -64,8 +61,7 @@ export function calculateCompletionStatistics(
     return {
       completedCount,
       dueCount,
-      completionRate:
-        dueCount === 0 ? 0 : roundPercentage((completedCount / dueCount) * 100),
+      completionRate: dueCount === 0 ? 0 : roundPercentage((completedCount / dueCount) * 100),
     };
   }
 

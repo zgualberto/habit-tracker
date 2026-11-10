@@ -58,10 +58,7 @@ onMounted(loadToday);
 
 <template>
   <div class="space-y-6">
-    <PageHeader
-      title="Today"
-      :description="formatDisplayLocalDate(currentLocalDate)"
-    >
+    <PageHeader title="Today" :description="formatDisplayLocalDate(currentLocalDate)">
       <template #actions>
         <RouterLink
           :to="{ name: APPLICATION_ROUTE_NAMES.HABIT_CREATION }"
@@ -119,8 +116,6 @@ onMounted(loadToday);
       />
     </div>
 
-    <BaseButton v-if="entries.length > 0" variant="ghost" @click="loadToday">
-      Refresh
-    </BaseButton>
+    <BaseButton v-if="entries.length > 0" variant="ghost" @click="loadToday"> Refresh </BaseButton>
   </div>
 </template>

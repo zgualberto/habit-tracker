@@ -35,13 +35,9 @@ describe('habit scheduling', () => {
 
   it('keeps a weekly habit due until the target is met', () => {
     expect(isHabitDueOnLocalDate(weeklyTargetSchedule, '2026-11-09', new Set())).toBe(true);
-    expect(
-      isHabitDueOnLocalDate(
-        weeklyTargetSchedule,
-        '2026-11-10',
-        new Set(['2026-11-09']),
-      ),
-    ).toBe(true);
+    expect(isHabitDueOnLocalDate(weeklyTargetSchedule, '2026-11-10', new Set(['2026-11-09']))).toBe(
+      true,
+    );
     expect(
       isHabitDueOnLocalDate(
         weeklyTargetSchedule,
@@ -62,7 +58,7 @@ describe('habit scheduling', () => {
     const grouped = groupLocalDatesByWeek(['2026-11-09', '2026-11-11', '2026-11-16']);
 
     expect([...grouped.keys()]).toEqual(['2026-11-09', '2026-11-16']);
-    expect([...grouped.get('2026-11-09') ?? []]).toEqual(['2026-11-09', '2026-11-11']);
+    expect([...(grouped.get('2026-11-09') ?? [])]).toEqual(['2026-11-09', '2026-11-11']);
   });
 
   it('returns only the completions of the week that contains the date', () => {

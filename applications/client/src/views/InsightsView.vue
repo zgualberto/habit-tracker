@@ -14,10 +14,7 @@ import MetricCard from '../components/MetricCard.vue';
 import PageAnalyticsCard from '../components/PageAnalyticsCard.vue';
 import PageHeader from '../components/PageHeader.vue';
 import ProgressBar from '../components/ProgressBar.vue';
-import {
-  CHART_COLORS,
-  PERCENTAGE_PRECISION,
-} from '../constants/presentation.constants';
+import { CHART_COLORS, PERCENTAGE_PRECISION } from '../constants/presentation.constants';
 import { useAnalyticsStore } from '../stores/analytics.store';
 import { useAuthenticationStore } from '../stores/authentication.store';
 import { useInsightStore } from '../stores/insight.store';
@@ -30,17 +27,15 @@ const insightStore = useInsightStore();
 const analyticsStore = useAnalyticsStore();
 const toastStore = useToastStore();
 
-const {
-  summary,
-  selectedRangeInDays,
-  isLoading: isInsightLoading,
-} = storeToRefs(insightStore);
+const { summary, selectedRangeInDays, isLoading: isInsightLoading } = storeToRefs(insightStore);
 const { summary: analyticsSummary, isLoading: isAnalyticsLoading } = storeToRefs(analyticsStore);
 
 const timeZone = computed(() => authenticationStore.user?.timeZone ?? 'UTC');
 
 const chartLabels = computed(() =>
-  (summary.value?.dailySeries ?? []).map((dailyEntry) => formatShortLocalDate(dailyEntry.localDate)),
+  (summary.value?.dailySeries ?? []).map((dailyEntry) =>
+    formatShortLocalDate(dailyEntry.localDate),
+  ),
 );
 
 const completedSeries = computed(() =>
@@ -157,8 +152,8 @@ onMounted(loadInsights);
                 {{ habitEntry.habitName }}
               </RouterLink>
               <span class="text-xs text-slate-500">
-                {{ habitEntry.completedCount }} / {{ habitEntry.dueCount }} ·
-                current {{ habitEntry.currentStreak }} · best {{ habitEntry.longestStreak }}
+                {{ habitEntry.completedCount }} / {{ habitEntry.dueCount }} · current
+                {{ habitEntry.currentStreak }} · best {{ habitEntry.longestStreak }}
               </span>
             </div>
             <ProgressBar

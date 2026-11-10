@@ -43,10 +43,7 @@ export class PushSubscriptionRepository {
     });
   }
 
-  public async deleteByIdentifier(
-    identifier: string,
-    userIdentifier: string,
-  ): Promise<number> {
+  public async deleteByIdentifier(identifier: string, userIdentifier: string): Promise<number> {
     const deletionResult = await this.prismaService.pushSubscription.deleteMany({
       where: { identifier, userIdentifier },
     });

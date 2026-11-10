@@ -21,10 +21,7 @@ const currentYear = new Date().getFullYear();
         class="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-2 px-4 py-4 text-xs text-slate-400 sm:px-6"
       >
         <span>© {{ currentYear }} Habit Tracker</span>
-        <RouterLink
-          :to="{ name: APPLICATION_ROUTE_NAMES.SETTINGS }"
-          class="hover:text-slate-600"
-        >
+        <RouterLink :to="{ name: APPLICATION_ROUTE_NAMES.SETTINGS }" class="hover:text-slate-600">
           Settings
         </RouterLink>
       </div>

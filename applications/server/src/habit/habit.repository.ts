@@ -99,10 +99,7 @@ export class HabitRepository {
     });
   }
 
-  public update(
-    identifier: string,
-    input: UpdateHabitInput,
-  ): Promise<Habit> {
+  public update(identifier: string, input: UpdateHabitInput): Promise<Habit> {
     return this.prismaService.habit.update({
       where: { identifier },
       data: input,

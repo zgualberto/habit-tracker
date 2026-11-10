@@ -2,9 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 
-import {
-  AUTHENTICATION_TOKEN_EXPIRATION_DURATION,
-} from '../common/constants/authentication.constants';
+import { AUTHENTICATION_TOKEN_EXPIRATION_DURATION } from '../common/constants/authentication.constants';
 import { ENVIRONMENT_VARIABLE_NAMES } from '../common/constants/environment.constants';
 import { AuthenticationController } from './authentication.controller';
 import { AuthenticationService } from './authentication.service';

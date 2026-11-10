@@ -55,9 +55,7 @@ export class AnalyticsRepository {
         name: input.name,
         path: input.path,
         metadata:
-          input.metadata === null
-            ? Prisma.DbNull
-            : (input.metadata as Prisma.InputJsonValue),
+          input.metadata === null ? Prisma.DbNull : (input.metadata as Prisma.InputJsonValue),
       },
     });
   }

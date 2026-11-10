@@ -53,7 +53,9 @@ function describeRelativeDay(localDate: string): string {
         class="flex flex-wrap items-center justify-between gap-2 py-3"
       >
         <div>
-          <p class="text-sm font-medium text-slate-800">{{ formatDisplayLocalDate(log.localDate) }}</p>
+          <p class="text-sm font-medium text-slate-800">
+            {{ formatDisplayLocalDate(log.localDate) }}
+          </p>
           <p class="text-xs text-slate-400">{{ describeRelativeDay(log.localDate) }}</p>
         </div>
         <div class="flex items-center gap-2">

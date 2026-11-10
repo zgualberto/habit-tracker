@@ -2,10 +2,7 @@
 import { computed } from 'vue';
 import { RouterLink } from 'vue-router';
 
-import {
-  HABIT_CADENCE_LABELS,
-  WEEKDAY_SHORT_LABELS,
-} from '../constants/presentation.constants';
+import { HABIT_CADENCE_LABELS, WEEKDAY_SHORT_LABELS } from '../constants/presentation.constants';
 import { buildHabitDetailRoutePath } from '@habit-tracker/contracts';
 import type { Habit } from '@habit-tracker/contracts';
 import BaseButton from './BaseButton.vue';

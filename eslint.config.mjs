@@ -67,15 +67,18 @@ export default tseslint.config(
       '@typescript-eslint/naming-convention': [
         'error',
         { selector: 'default', format: ['camelCase'], leadingUnderscore: 'allow' },
+        { selector: 'import', format: ['camelCase', 'PascalCase'] },
         { selector: 'variable', format: ['camelCase', 'UPPER_CASE', 'PascalCase'] },
         { selector: 'parameter', format: ['camelCase'], leadingUnderscore: 'allow' },
         { selector: 'typeLike', format: ['PascalCase'] },
         { selector: 'enumMember', format: ['UPPER_CASE'] },
         {
-          selector: 'variable',
-          types: ['boolean'],
-          format: ['PascalCase'],
-          prefix: ['is', 'has', 'can', 'should'],
+          // Constant maps use UPPER_CASE keys, Prisma compound keys use
+          // snake_case (`habitIdentifier_localDate`), and third-party keys are
+          // chosen by the library (`@`, `/api`, `QUERY PLAN`). Property names
+          // are therefore owned by the object being described, not by us.
+          selector: 'property',
+          format: null,
         },
       ],
     },
@@ -100,6 +103,18 @@ export default tseslint.config(
       'vue/max-attributes-per-line': 'off',
       'vue/singleline-html-element-content-newline': 'off',
       'vue/html-self-closing': 'off',
+    },
+  },
+  {
+    files: ['**/*.js', '**/*.cjs', '**/*.mjs'],
+    languageOptions: {
+      globals: { ...globals.node },
+    },
+  },
+  {
+    files: ['**/serviceWorker.js'],
+    languageOptions: {
+      globals: { ...globals.serviceworker },
     },
   },
   {

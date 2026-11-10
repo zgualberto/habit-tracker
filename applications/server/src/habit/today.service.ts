@@ -1,15 +1,9 @@
 import { Injectable } from '@nestjs/common';
 
-import {
-  HABIT_STATISTICS_HISTORY_IN_DAYS,
-  type TodayResponse,
-} from '@habit-tracker/contracts';
+import { HABIT_STATISTICS_HISTORY_IN_DAYS, type TodayResponse } from '@habit-tracker/contracts';
 
 import type { AuthenticatedUser } from '../common/types/authenticated-request.type';
-import {
-  addDaysToLocalDate,
-  getStartOfWeekLocalDate,
-} from '../domain/local-date.utility';
+import { addDaysToLocalDate } from '../domain/local-date.utility';
 import {
   getCompletedLocalDatesInWeek,
   isHabitDueOnLocalDate,
@@ -25,10 +19,7 @@ export class TodayService {
     authenticatedUser: AuthenticatedUser,
     localDate: string,
   ): Promise<TodayResponse> {
-    const historyStartLocalDate = addDaysToLocalDate(
-      localDate,
-      -HABIT_STATISTICS_HISTORY_IN_DAYS,
-    );
+    const historyStartLocalDate = addDaysToLocalDate(localDate, -HABIT_STATISTICS_HISTORY_IN_DAYS);
     const habits = await this.habitRepository.findManyWithLogs({
       userIdentifier: authenticatedUser.identifier,
       status: 'active',

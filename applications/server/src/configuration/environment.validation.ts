@@ -16,11 +16,9 @@ export const environmentSchema = zod.object({
     .default(NODE_ENVIRONMENTS.DEVELOPMENT),
   PORT: zod.coerce.number().int().min(1).max(65_535).default(DEFAULT_SERVER_PORT),
   DATABASE_URL: zod.string().min(1, { message: 'DATABASE_URL is required.' }),
-  AUTHENTICATION_JWT_SECRET: zod
-    .string()
-    .min(MINIMUM_JWT_SECRET_LENGTH, {
-      message: `AUTHENTICATION_JWT_SECRET must be at least ${MINIMUM_JWT_SECRET_LENGTH} characters long.`,
-    }),
+  AUTHENTICATION_JWT_SECRET: zod.string().min(MINIMUM_JWT_SECRET_LENGTH, {
+    message: `AUTHENTICATION_JWT_SECRET must be at least ${MINIMUM_JWT_SECRET_LENGTH} characters long.`,
+  }),
   CLIENT_ORIGIN: zod.string().url().default(DEFAULT_CLIENT_ORIGIN),
   VAPID_PUBLIC_KEY: zod.string().min(1).optional(),
   VAPID_PRIVATE_KEY: zod.string().min(1).optional(),

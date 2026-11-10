@@ -2,10 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { Cron } from '@nestjs/schedule';
 
 import { REMINDER_SCHEDULER_CRON_EXPRESSION } from '../common/constants/notification.constants';
-import {
-  getCurrentLocalDate,
-  getLocalTimeForTimeZone,
-} from '../domain/local-date.utility';
+import { getCurrentLocalDate, getLocalTimeForTimeZone } from '../domain/local-date.utility';
 import { PushNotificationService } from './push-notification.service';
 import { ReminderRepository } from './reminder.repository';
 

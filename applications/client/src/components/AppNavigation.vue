@@ -44,7 +44,9 @@ async function signOut(): Promise<void> {
         :to="APPLICATION_ROUTE_PATHS.TODAY"
         class="flex items-center gap-2 text-base font-bold text-brand-700"
       >
-        <span class="flex size-8 items-center justify-center rounded-lg bg-brand-700 text-white">✓</span>
+        <span class="flex size-8 items-center justify-center rounded-lg bg-brand-700 text-white"
+          >✓</span
+        >
         <span class="hidden sm:inline">{{ APPLICATION_NAME }}</span>
       </RouterLink>
 

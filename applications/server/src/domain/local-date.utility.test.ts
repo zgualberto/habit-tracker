@@ -19,12 +19,12 @@ describe('local date utilities', () => {
   });
 
   it('handles the daylight saving time transition', () => {
-    expect(
-      getLocalDateForTimeZone(new Date('2026-03-08T04:59:00.000Z'), 'America/New_York'),
-    ).toBe('2026-03-07');
-    expect(
-      getLocalDateForTimeZone(new Date('2026-03-08T06:30:00.000Z'), 'America/New_York'),
-    ).toBe('2026-03-08');
+    expect(getLocalDateForTimeZone(new Date('2026-03-08T04:59:00.000Z'), 'America/New_York')).toBe(
+      '2026-03-07',
+    );
+    expect(getLocalDateForTimeZone(new Date('2026-03-08T06:30:00.000Z'), 'America/New_York')).toBe(
+      '2026-03-08',
+    );
   });
 
   it('resolves the wall-clock time in the requested time zone', () => {

@@ -33,10 +33,7 @@ export class AnalyticsEventController {
     @OptionalCurrentUser() authenticatedUser: AuthenticatedUser | undefined,
     @Body() request: AnalyticsEventRequestDto,
   ): Promise<AnalyticsEventResponse> {
-    return this.analyticsService.recordEvent(
-      authenticatedUser,
-      request as AnalyticsEventRequest,
-    );
+    return this.analyticsService.recordEvent(authenticatedUser, request as AnalyticsEventRequest);
   }
 }
 

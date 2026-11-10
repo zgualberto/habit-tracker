@@ -78,13 +78,15 @@ function resetForm(habit: Habit | null): void {
   formValues.description = habit?.description ?? '';
   formValues.cadence = habit?.cadence ?? HABIT_CADENCE_VALUES[0];
   formValues.weekdays = habit === null ? [] : [...habit.weekdays];
-  formValues.weeklyTarget = habit?.weeklyTarget === null || habit?.weeklyTarget === undefined
-    ? ''
-    : String(habit.weeklyTarget);
+  formValues.weeklyTarget =
+    habit?.weeklyTarget === null || habit?.weeklyTarget === undefined
+      ? ''
+      : String(habit.weeklyTarget);
   formValues.targetType = habit?.targetType ?? HABIT_TARGET_TYPE_VALUES[0];
-  formValues.targetValue = habit?.targetValue === null || habit?.targetValue === undefined
-    ? ''
-    : String(habit.targetValue);
+  formValues.targetValue =
+    habit?.targetValue === null || habit?.targetValue === undefined
+      ? ''
+      : String(habit.targetValue);
   formValues.reminderTime = habit?.reminderTime ?? '';
   fieldErrors.value = {};
 }

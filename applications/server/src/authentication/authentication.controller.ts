@@ -26,12 +26,19 @@ import {
   AUTHENTICATION_COOKIE_NAME,
   AUTHENTICATION_ROUTE_ACTIONS,
 } from '../common/constants/authentication.constants';
-import { ENVIRONMENT_VARIABLE_NAMES, NODE_ENVIRONMENTS } from '../common/constants/environment.constants';
+import {
+  ENVIRONMENT_VARIABLE_NAMES,
+  NODE_ENVIRONMENTS,
+} from '../common/constants/environment.constants';
 import { HTTP_HEADER_NAMES } from '../common/constants/http.constants';
 import { ConfigService } from '@nestjs/config';
 import type { AuthenticatedUser } from '../common/types/authenticated-request.type';
 import { AuthenticationService } from './authentication.service';
-import { LoginRequestDto, RegistrationRequestDto, UpdateProfileRequestDto } from './authentication.dto';
+import {
+  LoginRequestDto,
+  RegistrationRequestDto,
+  UpdateProfileRequestDto,
+} from './authentication.dto';
 import {
   buildAuthenticationCookieClearingOptions,
   buildAuthenticationCookieOptions,

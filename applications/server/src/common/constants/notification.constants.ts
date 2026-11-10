@@ -8,8 +8,7 @@ export const REMINDER_NOTIFICATION_BODY_PREFIX = 'Time for';
 
 export const TEST_NOTIFICATION_TITLE = 'Notifications are working';
 
-export const TEST_NOTIFICATION_BODY =
-  'This is a test notification from your habit tracker.';
+export const TEST_NOTIFICATION_BODY = 'This is a test notification from your habit tracker.';
 
 export const EXPIRED_PUSH_SUBSCRIPTION_STATUS_CODES = [404, 410];
 
