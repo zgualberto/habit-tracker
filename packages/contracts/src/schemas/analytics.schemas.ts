@@ -8,18 +8,12 @@ import {
 import { analyticsDateRangeSchema } from './analytics-range.schema';
 import { localDateSchema } from './habit.schemas';
 
-export const analyticsEventNameSchema = zod.enum([
-  ANALYTICS_EVENT_NAMES.PAGE_VIEW,
-]);
+export const analyticsEventNameSchema = zod.enum([ANALYTICS_EVENT_NAMES.PAGE_VIEW]);
 
 export const analyticsEventRequestSchema = zod.object({
   name: analyticsEventNameSchema,
   path: zod.string().trim().min(1).max(ANALYTICS_PAGE_PATH_MAXIMUM_LENGTH),
-  sessionIdentifier: zod
-    .string()
-    .trim()
-    .min(1)
-    .max(ANALYTICS_SESSION_IDENTIFIER_MAXIMUM_LENGTH),
+  sessionIdentifier: zod.string().trim().min(1).max(ANALYTICS_SESSION_IDENTIFIER_MAXIMUM_LENGTH),
   metadata: zod.record(zod.unknown()).optional(),
 });
 
