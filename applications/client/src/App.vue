@@ -1,0 +1,18 @@
+<script setup lang="ts">
+import { computed } from 'vue';
+import { RouterView, useRoute } from 'vue-router';
+
+import AppLayout from './components/AppLayout.vue';
+import ToastHost from './components/ToastHost.vue';
+
+const route = useRoute();
+const usesAuthenticatedLayout = computed(() => route.meta.requiresAuthentication === true);
+</script>
+
+<template>
+  <AppLayout v-if="usesAuthenticatedLayout">
+    <RouterView />
+  </AppLayout>
+  <RouterView v-else />
+  <ToastHost />
+</template>

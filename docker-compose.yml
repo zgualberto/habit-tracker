@@ -1,0 +1,54 @@
+name: habit-tracker
+
+services:
+  database:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: habit_tracker
+      POSTGRES_USER: habit_tracker
+      POSTGRES_PASSWORD: habit_tracker
+    ports:
+      - '5432:5432'
+    volumes:
+      - database-volume:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U habit_tracker -d habit_tracker']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  server:
+    build:
+      context: .
+      dockerfile: docker/server.Dockerfile
+    environment:
+      NODE_ENVIRONMENT: production
+      PORT: 3000
+      DATABASE_URL: postgresql://habit_tracker:habit_tracker@database:5432/habit_tracker?schema=public&connection_limit=10&pool_timeout=20
+      AUTHENTICATION_JWT_SECRET: ${AUTHENTICATION_JWT_SECRET:-development-only-secret-change-before-deploying-9d1f0d2b7c6a4f38}
+      CLIENT_ORIGIN: http://localhost:8080
+      VAPID_PUBLIC_KEY: ${VAPID_PUBLIC_KEY:-BPAjuKtqhP0Hgi1YqBfW2mrJx-PEba3DNqu8SdrG4ub59x-M4O_YLWplmhzf8wSH6jqH6YwC6_2oucTPqra_OFM}
+      VAPID_PRIVATE_KEY: ${VAPID_PRIVATE_KEY:-0X8QSRyMQe7Ppvx6zt_J1-tc80ZJiPKgVb-g17oTmzw}
+      VAPID_SUBJECT: ${VAPID_SUBJECT:-mailto:demo@habit.app}
+      ANALYTICS_RETENTION_IN_DAYS: 90
+    depends_on:
+      database:
+        condition: service_healthy
+    healthcheck:
+      test: ['CMD-SHELL', 'wget --quiet --tries=1 --spider http://localhost:3000/api/health || exit 1']
+      interval: 10s
+      timeout: 5s
+      retries: 12
+
+  client:
+    build:
+      context: .
+      dockerfile: docker/client.Dockerfile
+    ports:
+      - '8080:80'
+    depends_on:
+      server:
+        condition: service_healthy
+
+volumes:
+  database-volume:

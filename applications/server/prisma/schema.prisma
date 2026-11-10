@@ -1,0 +1,131 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource database {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum HabitCadence {
+  DAILY
+  WEEKDAYS
+  WEEKLY_TARGET
+}
+
+enum HabitTargetType {
+  BOOLEAN
+  COUNT
+}
+
+model User {
+  identifier             String                  @id @default(uuid())
+  email                  String                  @unique
+  passwordHash           String
+  displayName            String
+  timeZone               String                  @default("UTC")
+  createdAt              DateTime                @default(now())
+  habits                 Habit[]
+  authenticationSessions AuthenticationSession[]
+  pushSubscriptions      PushSubscription[]
+  analyticsEvents        AnalyticsEvent[]
+
+  @@map("user")
+}
+
+/// Whitelist of issued tokens. A token is only accepted while its session row
+/// exists and has not been revoked, which is what makes logout effective.
+model AuthenticationSession {
+  identifier     String    @id @default(uuid())
+  userIdentifier String
+  userAgent      String?
+  expiresAt      DateTime
+  revokedAt      DateTime?
+  createdAt      DateTime  @default(now())
+
+  user           User      @relation(fields: [userIdentifier], references: [identifier], onDelete: Cascade)
+
+  @@index([userIdentifier, revokedAt])
+  @@index([expiresAt])
+  @@map("authentication_session")
+}
+
+model Habit {
+  identifier     String          @id @default(uuid())
+  userIdentifier String
+  name           String
+  description    String?
+  cadence        HabitCadence
+  weekdays       Int[]
+  weeklyTarget   Int?
+  targetType     HabitTargetType @default(BOOLEAN)
+  targetValue    Int?
+  reminderTime   String?
+  archivedAt     DateTime?
+  createdAt      DateTime        @default(now())
+
+  user           User            @relation(fields: [userIdentifier], references: [identifier], onDelete: Cascade)
+  logs           HabitLog[]
+  reminderSends  ReminderSend[]
+
+  @@index([userIdentifier, archivedAt, createdAt(sort: Desc)])
+  @@map("habit")
+}
+
+model HabitLog {
+  identifier      String   @id @default(uuid())
+  habitIdentifier String
+  localDate       String
+  completionValue Int
+  note            String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  habit           Habit    @relation(fields: [habitIdentifier], references: [identifier], onDelete: Cascade)
+
+  @@unique([habitIdentifier, localDate])
+  @@map("habit_log")
+}
+
+model PushSubscription {
+  identifier     String   @id @default(uuid())
+  userIdentifier String
+  endpoint       String   @unique
+  p256dh         String
+  authentication String
+  userAgent      String?
+  createdAt      DateTime @default(now())
+
+  user           User     @relation(fields: [userIdentifier], references: [identifier], onDelete: Cascade)
+
+  @@index([userIdentifier])
+  @@map("push_subscription")
+}
+
+model ReminderSend {
+  identifier      String   @id @default(uuid())
+  habitIdentifier String
+  localDate       String
+  sentAt          DateTime @default(now())
+
+  habit           Habit    @relation(fields: [habitIdentifier], references: [identifier], onDelete: Cascade)
+
+  @@unique([habitIdentifier, localDate])
+  @@map("reminder_send")
+}
+
+model AnalyticsEvent {
+  identifier        String   @id @default(uuid())
+  userIdentifier    String?
+  sessionIdentifier String
+  name              String
+  path              String
+  metadata          Json?
+  createdAt         DateTime @default(now())
+
+  user              User?    @relation(fields: [userIdentifier], references: [identifier], onDelete: SetNull)
+
+  @@index([userIdentifier, createdAt(sort: Desc)])
+  @@index([createdAt])
+  @@map("analytics_event")
+}

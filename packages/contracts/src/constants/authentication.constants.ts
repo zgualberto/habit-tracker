@@ -1,0 +1,13 @@
+export const EMAIL_MAXIMUM_LENGTH = 254;
+
+export const PASSWORD_MINIMUM_LENGTH = 8;
+
+export const PASSWORD_MAXIMUM_LENGTH = 128;
+
+export const DISPLAY_NAME_MINIMUM_LENGTH = 1;
+
+export const DISPLAY_NAME_MAXIMUM_LENGTH = 80;
+
+export const TIME_ZONE_MAXIMUM_LENGTH = 64;
+
+export const DEFAULT_TIME_ZONE = 'UTC';

@@ -40,5 +40,13 @@
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.46.4",
     "vue-eslint-parser": "^10.2.0"
+  },
+  "allowScripts": {
+    "@prisma/client@6.19.3": true,
+    "@prisma/engines@6.19.3": true,
+    "argon2@0.44.0": true,
+    "esbuild@0.27.7": true,
+    "prisma@6.19.3": true,
+    "@scarf/scarf": false
   }
 }
